@@ -1,0 +1,97 @@
+
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile.airflow 
+  image: energy-airflow:latest
+  restart: unless-stopped
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://energy_user:change_me@energy-db:5432/airflow
+    PYTHONPATH: /opt/energy_mlops
+
+    DB_HOST: energy-db
+    DB_PORT: "5432"
+    DB_NAME: energy
+    DB_USER: energy_user
+    DB_PASSWORD: change_me
+
+    
+    MLFLOW_TRACKING_URI: http://mlflow:5000
+
+
+
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./artifacts:/opt/energy_mlops/artifacts
+    - airflow-logs:/opt/airflow/logs
+    - airflow-home:/opt/airflow
+    - mlflow-data:/mlflow              # share artifacts/backend with mlflow
+
+  depends_on:
+    - energy-db
+    - mlflow
+
+
+
+services:
+  # ---------------- POSTGRES ----------------
+  energy-db:
+    image: postgres:13
+    container_name: energy-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: energy
+      POSTGRES_USER: energy_user
+      POSTGRES_PASSWORD: change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # ---------------- MLFLOW ------------------
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    container_name: mlflow
+    working_dir: /app
+    restart: unless-stopped
+    volumes:
+      - mlflow-data:/mlflow        # shared volume for artifacts + backend
+    environment:
+      MLFLOW_SERVER_DISABLE_SECURITY_MIDDLEWARE: "true"
+    command: >
+      mlflow server
+        --backend-store-uri sqlite:////mlflow/mlflow.db   
+        --default-artifact-root /mlflow                   
+        --host 0.0.0.0
+        --port 5000
+    ports:
+      - "5001:5000"
+
+
+
+  # ------------- AIRFLOW WEBSERVER ----------
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: energy-airflow-webserver
+    command: webserver
+    ports:
+      - "8080:8080"
+
+  # ------------- AIRFLOW SCHEDULER ----------
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: energy-airflow-scheduler
+    command: scheduler
+
+volumes:
+  pgdata:
+  airflow-logs:
+  airflow-home:
+  airflow-artifacts:
+  mlflow-data:    # named volume for MLflow db + artifacts
+

@@ -1,0 +1,87 @@
+
+data_ingestion:
+
+database:
+  hours_history: 8760        # last year: 24 * 365
+
+data_transformation:
+
+  # explicit list of feature columns to use from df_mlf
+  feature_cols:
+    - "is_holiday"
+    # - "visibility"
+    # - "windBearing"
+    - "temperature"
+    # - "humidity"
+  test_hours: 24
+
+
+model_trainer:
+  model_type: "mlforecast"
+
+  mlforecast:
+    unique_id_col: "unique_id"
+    time_col: "ds"
+    target_col: "y"
+    freq: "h"
+
+    dynamic_features:
+      - "is_holiday"
+      - "temperature"
+    static_features: []
+
+
+    h: 24
+    n_windows: 4    # you can tune this for speed
+
+    lags: [1, 24, 168]
+    differences: [24]
+
+    lag_transforms:
+      "1":
+        - type: ExpandingMean
+      "24":
+        - type: RollingMean
+          window_size: 48
+
+    date_features:
+      - "hour"
+      - "dayofweek"
+
+    models:
+      lgbm:
+        type: lightgbm
+        params_list:
+          - num_leaves: 128
+            learning_rate: 0.05
+            n_estimators: 200
+            verbosity: -1
+          - num_leaves: 512
+            learning_rate: 0.05
+            n_estimators: 200
+            verbosity: -1
+
+      # rf:
+      #   type: rf
+      #   params_list:
+      #     - n_estimators: 200
+      #       max_depth: 10
+      #       min_samples_leaf: 1
+      #       n_jobs: -1
+
+      lin_reg:
+        type: linear
+        params_list:
+          - fit_intercept: true
+          - fit_intercept: false
+
+
+batch_prediction:
+  n_future_hours: 24
+  exog_source:
+    type: db
+    params:
+      table: df_exog
+      time_col: ds
+
+      

@@ -1,0 +1,23 @@
+# Python virtualenvs
+.venv
+.venv_airflow
+.nrel_data_venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# MLflow runs
+mlruns/
+
+# Git stuff
+.git
+.gitignore
+
+# Local data / outputs that don’t belong in the image
+data/
+output/
+.airflow_home
+airflow_home_local/
+*.log

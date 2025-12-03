@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+# .env
+.venv_airflow/
+.nrel_data_venv/
+.venv
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Artifacts
+artifacts/
+models/
+logs/
+output/
+airflow_home_local/
+mlruns/
+data/

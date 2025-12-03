@@ -1,0 +1,6 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Only install mlflow here; no config
+RUN pip install --no-cache-dir mlflow==3.6.0
