@@ -832,7 +832,7 @@ pytest tests/test_train_pipeline_full.py -q
 6. `docker compose run --rm airflow-webserver airflow db init`
 7. Create Airflow admin user
 8. Restart stack (`docker compose down && docker compose up -d`)
-9. Exec into `energy-airflow-webserver` and run `python3 -m scripts.kaggle_to_db_df_mlf`
+9. In the project directory, run `python3 -m scripts.kaggle_to_db_df_mlf`
 10. Open Airflow UI, enable DAGs, trigger training and batch prediction
 11. Open MLflow UI to inspect experiments
 
