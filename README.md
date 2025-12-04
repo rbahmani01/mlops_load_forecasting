@@ -112,6 +112,7 @@ A simplified view of the most important files:
 ### 1.2 Dataset
 
 - This project is **not limited to a specific dataset**. Thanks to its generic, configuration-driven design, it can operate on any large-scale energy consumption dataset stored in PostgreSQL.
+- The data can be added to the Postgres database via the API.
 - For demonstration and benchmarking, we use the **Smart Meters in London** dataset from the UK Power Networks *Low Carbon London* project.
 - The dataset contains electricity consumption readings for **5,567 households** collected between **2011–2014** as part of the UK’s nationwide smart-meter rollout.
 - It is a **cleaned, refactored version** of the original London Datastore release and includes **electrical energy consumption**, aggregated for efficient time-series forecasting.
