@@ -39,8 +39,13 @@ Forecasts electricity consumption for multiple time series using:
 ### Prerequisites
 
 - Docker (20.10+) and Docker Compose (2.0+)
-- Python 3.12 (for data loading)
+- Python 3.12 (for local development)
 - Kaggle API credentials ([get them here](https://www.kaggle.com/settings))
+- **System libraries** (for local Python development with LightGBM):
+  ```bash
+  # Linux (Debian/Ubuntu)
+  sudo apt-get update && sudo apt-get install -y libgomp1
+  ```
 
 ### Setup (5 minutes)
 

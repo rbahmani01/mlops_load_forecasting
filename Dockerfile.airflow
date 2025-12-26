@@ -5,6 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
       build-essential \
       gcc \
+      libgomp1 \
     && mkdir -p /mlflow \
     && chmod 777 /mlflow \
     && rm -rf /var/lib/apt/lists/*
