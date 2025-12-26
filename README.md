@@ -331,6 +331,10 @@ The project includes automated testing and deployment via GitHub Actions.
 - See test results for each commit
 - Coverage reports included
 
+![CI Workflow](assets/images/CI.png)
+
+*CI workflow running automated tests on every push*
+
 **Run tests locally before pushing:**
 
 ```bash
@@ -401,6 +405,10 @@ docker-compose up -d
 - ✅ Clear production versions (v1.0.0, v1.1.0, etc.)
 - ✅ CI still runs on every push to catch bugs early
 - ✅ You control when images are built and published
+
+![CD Workflow](assets/images/CD.png)
+
+*CD workflow building and pushing Docker images to Docker Hub*
 
 **Workflow files:**
 - CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
