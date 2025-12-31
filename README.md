@@ -1,7 +1,7 @@
 # Energy Load Forecasting MLOps Pipeline
 
 <p align="center">
-  <img src="assets/images/mlops_load_forecasting.png" alt="MLOps Load Forecasting" width="800">
+  <img src="assets/images/mlops_load_forecasting.png" alt="MLOps Load Forecasting" width="80%">
 </p>
 <p align="center">
   <em>MLOps load forecasting pipeline</em>
@@ -38,35 +38,35 @@ Forecasts electricity consumption for multiple time series using:
 - Configuration-driven via `config.yaml`
 
 <p align="center">
-  <img src="assets/images/Docker_1.png" alt="Docker Containers" width="800">
+  <img src="assets/images/Docker_1.png" alt="Docker Containers" width="80%">
 </p>
 <p align="center">
   <em>Running containers</em>
 </p>
 
 <p align="center">
-  <img src="assets/images/airflow_1.png" alt="Airflow DAGs" width="800">
+  <img src="assets/images/airflow_1.png" alt="Airflow DAGs" width="80%">
 </p>
 <p align="center">
   <em>Airflow UI</em>
 </p>
 
 <p align="center">
-  <img src="assets/images/MLflow_1.png" alt="MLflow Experiments" width="800">
+  <img src="assets/images/MLflow_1.png" alt="MLflow Experiments" width="80%">
 </p>
 <p align="center">
   <em>MLflow tracking experiments and metrics</em>
 </p>
 
 <p align="center">
-  <img src="assets/images/CI.png" alt="CI Workflow" width="800">
+  <img src="assets/images/CI.png" alt="CI Workflow" width="80%">
 </p>
 <p align="center">
   <em>CI workflow running automated tests on every push</em>
 </p>
 
 <p align="center">
-  <img src="assets/images/CD.png" alt="CD Workflow" width="800">
+  <img src="assets/images/CD.png" alt="CD Workflow" width="80%">
 </p>
 <p align="center">
   <em>CD workflow building and pushing Docker images to Docker Hub</em>
@@ -170,7 +170,7 @@ docker exec energy-airflow-scheduler airflow dags trigger energy_mlops_batch_pre
 Or use the Airflow UI at http://localhost:8080
 
 <p align="center">
-  <img src="assets/images/airflow_2.png" alt="Airflow Running" width="800">
+  <img src="assets/images/airflow_2.png" alt="Airflow Running" width="80%">
 </p>
 <p align="center">
   <em>Training pipeline executing in Airflow</em>
