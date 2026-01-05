@@ -18,7 +18,7 @@
 3. [Running Pipelines](#running-pipelines)
 4. [Configuration](#configuration)
 5. [Development](#development)
-6. [CI/CD (Continuous Integration & Deployment)](#cicd-continuous-integration--deployment)
+6. [CI/CD (Continuous Integration & Delivery)](#cicd-continuous-integration--delivery)
 7. [Troubleshooting](#troubleshooting)
 
 ---
@@ -356,7 +356,7 @@ This removes all Docker volumes, containers, and local data.
 
 ---
 
-## CI/CD (Continuous Integration & Deployment)
+## CI/CD (Continuous Integration & Delivery)
 
 The project includes automated testing and deployment via GitHub Actions.
 
@@ -367,13 +367,14 @@ The project includes automated testing and deployment via GitHub Actions.
 **What it does:**
 - Runs all tests automatically
 - Reports test coverage
-- Validates code quality
-- Takes ~2-4 minutes
+- Runs automated tests and reports coverage (shown in CI logs)
+
 
 **View CI results:**
 - Go to the **Actions** tab on GitHub
 - See test results for each commit
-- Coverage reports included
+- Coverage output shown in GitHub Actions logs
+
 
 **Run tests locally before pushing:**
 
@@ -382,7 +383,8 @@ source .venv/bin/activate
 pytest -v --cov=energy_forecasting
 ```
 
-### CD (Continuous Deployment)
+### CD (Continuous Delivery – build & publish release images)
+
 
 **Triggers:** Only on version tags (e.g., `v1.0.0`, `v2.1.3`) or manual trigger
 
@@ -394,14 +396,14 @@ pytest -v --cov=energy_forecasting
   - `your-username/energy-mlflow:latest`
   - `your-username/energy-mlflow:v1.0.0` (version tag)
 - Uses GitHub Actions cache for faster builds
-- Takes ~10-15 minutes first run, ~2-5 minutes with cache
+- This workflow builds and publishes Docker images but does not deploy them to servers automatically.
 
 **Setup (one-time):**
 
 1. Create Docker Hub access token:
    - Go to https://hub.docker.com/settings/security
    - Click "New Access Token"
-   - Permissions: **Read, Write, Delete**
+   - Permissions: **Read, Write**
    - Copy the token
 
 2. Add GitHub secrets (Settings → Secrets and variables → Actions):
